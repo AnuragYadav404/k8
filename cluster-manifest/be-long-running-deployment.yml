@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: be-long-running-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: be-long-running
+  template:
+    metadata:
+      labels:
+        app: be-long-running
+    spec:
+      containers:
+      - name: be-long-running-container
+        image: rookie7722/be_long_running:v1   # <-- replace with your Docker Hub image
+        ports:
+        - containerPort: 3000
+---
+
+# now we need to create something like a nodeport
+apiVersion: v1
+kind: Service
+metadata:
+  name: be-long-running-service
+spec:
+  type: NodePort
+  selector:
+    app: be-long-running
+  ports:
+    - port: 80
+      # By default and for convenience, the `targetPort` is set to
+      # the same value as the `port` field.
+      targetPort: 3000
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane
+      # will allocate a port from a range (default: 30000-32767)
+      nodePort: 30008
