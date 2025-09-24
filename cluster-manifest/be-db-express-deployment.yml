@@ -14,7 +14,10 @@ spec:
     spec:
       containers:
       - name: be-db-express-container
-        image: rookie7722/be_db_express:v1   # <-- replace with your Docker Hub image
+        image: rookie7722/be_db_express:v2   # <-- replace with your Docker Hub image
+        envFrom: 
+          - configMapRef:
+              name: env-config
         ports:
         - containerPort: 3000
 ---

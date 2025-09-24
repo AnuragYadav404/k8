@@ -14,7 +14,10 @@ spec:
     spec:
       containers:
       - name: be-long-running-container
-        image: rookie7722/be_long_running:v1   # <-- replace with your Docker Hub image
+        image: rookie7722/be_long_running:v2   # <-- replace with your Docker Hub image
+        envFrom: 
+          - configMapRef:
+              name: env-config
         ports:
         - containerPort: 3000
 ---
