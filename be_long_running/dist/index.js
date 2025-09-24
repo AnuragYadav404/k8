@@ -5,8 +5,12 @@ dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
 app.get("/", (req, res) => {
+    const counter_val = 10000000000;
+    for (let i = 0; i < counter_val; i++) {
+    }
     res.status(200).send({
-        message: "Hello from long running express app"
+        message: "Hello from long running express app",
+        counter_val
     });
 });
 app.listen(PORT, () => {
